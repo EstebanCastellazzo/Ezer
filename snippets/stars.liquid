@@ -1,0 +1,6 @@
+{%- comment -%} Renders 5 filled stars. Usage: {% render 'stars' %} {%- endcomment -%}
+<div class="testimonial-card__stars">
+  {%- for i in (1..5) -%}
+    {% render 'icon', name: 'star' %}
+  {%- endfor -%}
+</div>

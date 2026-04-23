@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Carrito - {{ shop.name }}</title>
+</head>
+<body>
+  <div class="container" style="padding: 48px 24px; text-align: center; min-height: 50vh;">
+    <h1 style="font-family: var(--font-heading); font-size: 28px; margin-bottom: 24px;">Tu Carrito</h1>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="/cart" method="post">
+        {%- for item in cart.items -%}
+          <div style="display: flex; gap: 16px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--color-border-light); max-width: 500px; margin: 0 auto; text-align: left;">
+            {%- if item.image -%}
+              <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.title | escape }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;">
+            {%- endif -%}
+            <div style="flex: 1;">
+              <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 500; margin-bottom: 4px;">{{ item.product.title }}</h3>
+              <p style="font-size: 13px; color: var(--color-text-light); margin-bottom: 4px;">Cantidad: {{ item.quantity }}</p>
+              <p style="font-size: 15px; font-weight: 300;">{{ item.line_price | money }}</p>
+            </div>
+            <a href="/cart/change?id={{ item.key }}&quantity=0" style="font-size: 12px; color: var(--color-text-light);">Eliminar</a>
+          </div>
+        {%- endfor -%}
+
+        <div style="max-width: 500px; margin: 24px auto; text-align: right;">
+          <p style="font-family: var(--font-heading); font-size: 20px; margin-bottom: 20px;">Total: {{ cart.total_price | money }}</p>
+          <button type="submit" name="checkout" class="btn-cta btn-cta--full">Finalizar Compra</button>
+        </div>
+      </form>
+    {%- else -%}
+      <p style="font-size: 14px; color: var(--color-text-light); margin-bottom: 32px;">Tu carrito está vacío.</p>
+      <a href="/" class="btn-cta">Seguir Comprando</a>
+    {%- endif -%}
+  </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "EZER",
+    "theme_version": "1.0.0",
+    "theme_author": "EZER",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  }
+]

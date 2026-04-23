@@ -1,0 +1,22 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Ir al contenido",
+      "close": "Cerrar"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Agregar al Carrito",
+      "buy_now": "Comprar Ahora",
+      "quantity": "Cantidad",
+      "description": "Descripción"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Carrito",
+      "empty": "Tu carrito está vacío"
+    }
+  }
+}

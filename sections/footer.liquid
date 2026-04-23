@@ -1,0 +1,52 @@
+<footer class="site-footer">
+  {%- if section.settings.logo -%}
+    <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" class="footer-logo">
+  {%- else -%}
+    <div style="font-family:var(--font-heading);font-size:22px;letter-spacing:0.2em;margin-bottom:18px;">{{ shop.name }}</div>
+  {%- endif -%}
+
+  <p class="footer-tagline">
+    {{ section.settings.tagline | default: 'Cuidado puro y consciente para toda la familia. Hecho con amor en Mendoza, Argentina.' }}
+  </p>
+
+  <div class="footer-links">
+    {%- for link in linklists.footer.links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+  </div>
+
+  <div class="footer-icons">
+    {% render 'icon', name: 'heart' %}
+    {% render 'icon', name: 'leaf' %}
+    {% render 'icon', name: 'toxic-free' %}
+  </div>
+
+  <div class="footer-divider"></div>
+
+  <div class="footer-legal">
+    {%- for link in linklists['footer-legal'].links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+  </div>
+
+  <p class="footer-copyright">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos los derechos reservados.</p>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo del footer"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Texto del footer",
+      "default": "Cuidado puro y consciente para toda la familia. Hecho con amor en Mendoza, Argentina."
+    }
+  ]
+}
+{% endschema %}

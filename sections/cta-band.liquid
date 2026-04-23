@@ -1,0 +1,20 @@
+<section class="cta-band fade-in">
+  <h2 class="cta-band__title">{{ section.settings.title | default: 'Tu piel merece lo mejor' }}</h2>
+  <p class="cta-band__text">{{ section.settings.text | default: 'Descubrí la diferencia de lo natural.' }}</p>
+  {%- if section.settings.button_text != blank -%}
+    <a href="{{ section.settings.button_url }}" class="btn-cta btn-cta--large">{{ section.settings.button_text }}</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "CTA Band",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Tu piel merece lo mejor" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Descubrí la diferencia de lo natural." },
+    { "type": "text", "id": "button_text", "label": "Texto botón", "default": "Ver Productos" },
+    { "type": "url", "id": "button_url", "label": "Link botón" }
+  ],
+  "presets": [{ "name": "CTA Band" }]
+}
+{% endschema %}

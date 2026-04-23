@@ -1,0 +1,60 @@
+{%- comment -%} Header Section {%- endcomment -%}
+
+<!-- Mobile Menu Overlay -->
+<div class="menu-overlay"></div>
+
+<!-- Mobile Menu Drawer -->
+<nav class="mobile-menu" aria-label="Menú móvil">
+  <div class="mobile-menu__header">
+    {%- if section.settings.logo -%}
+      <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" height="28">
+    {%- else -%}
+      <span style="font-family:var(--font-heading);font-size:24px;letter-spacing:0.2em;">{{ shop.name }}</span>
+    {%- endif -%}
+    <button class="mobile-menu__close" aria-label="Cerrar menú">
+      {% render 'icon', name: 'close' %}
+    </button>
+  </div>
+  {%- for link in linklists.main-menu.links -%}
+    <a href="{{ link.url }}" class="mobile-menu__link">{{ link.title }}</a>
+  {%- endfor -%}
+</nav>
+
+<!-- Header -->
+<header class="site-header">
+  <button class="header-icon-btn mobile-menu-toggle" aria-label="Abrir menú">
+    {% render 'icon', name: 'menu' %}
+  </button>
+
+  <a href="/" class="header-logo">
+    {%- if section.settings.logo -%}
+      <img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}">
+    {%- else -%}
+      <span style="font-family:var(--font-heading);font-size:26px;letter-spacing:0.22em;">{{ shop.name }}</span>
+    {%- endif -%}
+  </a>
+
+  <nav class="desktop-nav" aria-label="Navegación principal">
+    {%- for link in linklists.main-menu.links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+  </nav>
+
+  <a href="/cart" class="header-icon-btn" aria-label="Carrito">
+    {% render 'icon', name: 'cart' %}
+    <span class="cart-count">{{ cart.item_count }}</span>
+  </a>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    }
+  ]
+}
+{% endschema %}

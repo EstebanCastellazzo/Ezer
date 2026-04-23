@@ -1,0 +1,25 @@
+{%- comment -%}
+  Renders a product card.
+  Usage: {% render 'product-card', product: product %}
+{%- endcomment -%}
+
+<a href="{{ product.url }}" class="product-card">
+  <div class="product-card__image">
+    {%- if product.featured_image -%}
+      <img
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        alt="{{ product.featured_image.alt | escape }}"
+        width="600"
+        height="600"
+        loading="lazy"
+      >
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+  <h3 class="product-card__name">{{ product.title }}</h3>
+  {%- if product.metafields.custom.subtitle -%}
+    <p class="product-card__subtitle">{{ product.metafields.custom.subtitle }}</p>
+  {%- endif -%}
+  <p class="product-card__price">{{ product.price | money }}</p>
+</a>

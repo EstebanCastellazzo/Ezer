@@ -1,0 +1,49 @@
+<section class="why-section fade-in">
+  <h2 class="why-section__title">{{ section.settings.title | default: '¿Por qué EZER?' }}</h2>
+  <p class="why-section__text">{{ section.settings.text | default: 'Formulamos cada producto pensando en las pieles más delicadas. Sin parabenos, sin sulfatos, sin compromiso.' }}</p>
+  <div class="why-grid">
+    {%- for block in section.blocks -%}
+      <div class="why-card" {{ block.shopify_attributes }}>
+        <div class="why-card__icon">{% render 'icon', name: block.settings.icon %}</div>
+        <h3 class="why-card__title">{{ block.settings.title }}</h3>
+        <p class="why-card__desc">{{ block.settings.description }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "¿Por qué EZER?",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "¿Por qué EZER?" },
+    { "type": "textarea", "id": "text", "label": "Descripción", "default": "Formulamos cada producto pensando en las pieles más delicadas. Sin parabenos, sin sulfatos, sin compromiso." }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Tarjeta",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Ícono", "options": [
+          { "value": "drop", "label": "Gota" },
+          { "value": "shield", "label": "Escudo" },
+          { "value": "sun", "label": "Sol" },
+          { "value": "moon", "label": "Luna" },
+          { "value": "heart", "label": "Corazón" },
+          { "value": "leaf", "label": "Hoja" }
+        ], "default": "drop" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Hidratación Profunda" },
+        { "type": "text", "id": "description", "label": "Descripción", "default": "Ácido hialurónico y aloe vera" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "¿Por qué EZER?",
+    "blocks": [
+      { "type": "card", "settings": { "icon": "drop", "title": "Hidratación Profunda", "description": "Ácido hialurónico y aloe vera" } },
+      { "type": "card", "settings": { "icon": "shield", "title": "Barrera Protectora", "description": "Colágeno natural y vitamina E" } },
+      { "type": "card", "settings": { "icon": "sun", "title": "Ritual Completo", "description": "Día y noche para cada momento" } }
+    ]
+  }]
+}
+{% endschema %}

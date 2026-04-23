@@ -1,0 +1,31 @@
+<section class="products-section fade-in">
+  <h2 class="products-section__title">{{ section.settings.title | default: 'Nuestros Productos' }}</h2>
+  <p class="products-section__subtitle">{{ section.settings.subtitle | default: 'Ritual completo de día y noche' }}</p>
+  
+  {%- if section.settings.collection != blank -%}
+    <div class="products-grid">
+      {%- for product in collections[section.settings.collection].products limit: section.settings.limit -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <div class="products-grid">
+      {%- for product in collections.all.products limit: section.settings.limit -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Productos destacados",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Nuestros Productos" },
+    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Ritual completo de día y noche" },
+    { "type": "collection", "id": "collection", "label": "Colección" },
+    { "type": "range", "id": "limit", "label": "Productos a mostrar", "min": 2, "max": 8, "step": 1, "default": 2 }
+  ],
+  "presets": [{ "name": "Productos destacados" }]
+}
+{% endschema %}

@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-ezer",
+      "settings": {
+        "badge_icon": "sun",
+        "badge_text": "Protección Diurna",
+        "review_count": "47",
+        "cross_sell_title": "Completá tu rutina",
+        "cross_sell_text": "Potenciá los resultados con el cuidado completo"
+      },
+      "blocks": {
+        "ing1": { "type": "ingredient", "settings": { "name": "Aloe Vera", "description": "Hidrata y calma la piel en profundidad", "color": "#B5C8A0" } },
+        "ing2": { "type": "ingredient", "settings": { "name": "Colágeno Natural", "description": "Mejora la elasticidad y firmeza cutánea", "color": "#D9CDB8" } },
+        "step1": { "type": "step", "settings": { "number": "01", "title": "Limpiá", "description": "Lavá tu rostro con agua tibia." } },
+        "step2": { "type": "step", "settings": { "number": "02", "title": "Aplicá", "description": "Tomá una pequeña cantidad con las yemas de los dedos." } },
+        "step3": { "type": "step", "settings": { "number": "03", "title": "Masajeá", "description": "Distribuí con movimientos circulares ascendentes." } },
+        "step4": { "type": "step", "settings": { "number": "04", "title": "Disfrutá", "description": "Dejá que la piel absorba naturalmente." } },
+        "acc1": { "type": "accordion", "settings": { "title": "Lista Completa de Ingredientes", "content": "Aqua, Aloe Barbadensis Leaf Juice, Hydrolyzed Collagen, Glycerin, Simmondsia Chinensis Seed Oil, Butyrospermum Parkii Butter, Tocopherol, Rosmarinus Officinalis Leaf Extract, Citric Acid, Phenoxyethanol, Ethylhexylglycerin." } },
+        "acc2": { "type": "accordion", "settings": { "title": "Beneficios Clave", "content": "Hidratación profunda durante todo el día. Protege la barrera natural de la piel. Textura ligera y de rápida absorción. Sin parabenos, sin sulfatos, sin fragancias artificiales. Dermatológicamente testeado. Apto para pieles sensibles y toda la familia." } },
+        "acc3": { "type": "accordion", "settings": { "title": "Información de Envío", "content": "Envío gratis en Mendoza capital. Entregas en 24-48hs en zona Gran Mendoza. Envíos al interior por Correo Argentino o Andreani. Packaging eco-friendly 100% reciclable." } },
+        "test1": { "type": "testimonial", "settings": { "initials": "ML", "name": "María L.", "text": "Uso la crema de día y de noche. La textura es increíble y el aroma muy sutil." } },
+        "test2": { "type": "testimonial", "settings": { "initials": "CF", "name": "Carolina F.", "text": "Por fin encontré algo natural que realmente hidrata sin dejar la piel grasosa." } },
+        "test3": { "type": "testimonial", "settings": { "initials": "VP", "name": "Valentina P.", "text": "Mi dermatóloga me la recomendó para mi rosácea. Excelente calidad." } },
+        "test4": { "type": "testimonial", "settings": { "initials": "JR", "name": "Julieta R.", "text": "El packaging es hermoso y los ingredientes son de primera." } }
+      },
+      "block_order": ["ing1", "ing2", "step1", "step2", "step3", "step4", "acc1", "acc2", "acc3", "test1", "test2", "test3", "test4"]
+    }
+  },
+  "order": ["main"]
+}

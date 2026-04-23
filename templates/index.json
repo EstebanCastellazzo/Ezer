@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "title": "Lo que toca tu piel, también toca tu historia",
+        "subtitle": "Cuidado puro y consciente para toda la familia.",
+        "button_text": "Comprar Ahora"
+      }
+    },
+    "values-top": {
+      "type": "value-row",
+      "settings": { "large": false },
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "heart", "label": "Natural y Seguro" } },
+        "v2": { "type": "value", "settings": { "icon": "leaf", "label": "Apto para Piel Sensible" } },
+        "v3": { "type": "value", "settings": { "icon": "toxic-free", "label": "Libre de Tóxicos" } }
+      },
+      "block_order": ["v1", "v2", "v3"]
+    },
+    "products": {
+      "type": "featured-products",
+      "settings": {
+        "title": "Nuestros Productos",
+        "subtitle": "Ritual completo de día y noche",
+        "limit": 2
+      }
+    },
+    "featured-img": {
+      "type": "featured-image",
+      "settings": {
+        "text": "Ingredientes que respetan tu piel"
+      }
+    },
+    "values-bottom": {
+      "type": "value-row",
+      "settings": { "large": true },
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "heart", "label": "Natural y Seguro" } },
+        "v2": { "type": "value", "settings": { "icon": "leaf", "label": "Apto para Piel Sensible" } },
+        "v3": { "type": "value", "settings": { "icon": "toxic-free", "label": "Libre de Tóxicos" } }
+      },
+      "block_order": ["v1", "v2", "v3"]
+    },
+    "why": {
+      "type": "why-ezer",
+      "settings": {},
+      "blocks": {
+        "c1": { "type": "card", "settings": { "icon": "drop", "title": "Hidratación Profunda", "description": "Ácido hialurónico y aloe vera" } },
+        "c2": { "type": "card", "settings": { "icon": "shield", "title": "Barrera Protectora", "description": "Colágeno natural y vitamina E" } },
+        "c3": { "type": "card", "settings": { "icon": "sun", "title": "Ritual Completo", "description": "Día y noche para cada momento" } }
+      },
+      "block_order": ["c1", "c2", "c3"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": { "title": "Elegido por mamás que buscan lo mejor" },
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": { "initials": "ML", "name": "María López", "text": "La piel de mi bebé nunca estuvo tan suave." } },
+        "t2": { "type": "testimonial", "settings": { "initials": "AG", "name": "Ana García", "text": "Por fin una crema que puede usar toda la familia." } },
+        "t3": { "type": "testimonial", "settings": { "initials": "LS", "name": "Laura Sánchez", "text": "Ingredientes reales, resultados reales." } }
+      },
+      "block_order": ["t1", "t2", "t3"]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "title": "Tu piel merece lo mejor",
+        "text": "Descubrí la diferencia de lo natural.",
+        "button_text": "Ver Productos"
+      }
+    }
+  },
+  "order": ["hero", "values-top", "products", "featured-img", "values-bottom", "why", "testimonials", "cta"]
+}

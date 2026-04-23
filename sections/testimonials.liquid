@@ -1,0 +1,41 @@
+<section class="testimonials fade-in">
+  <h2 class="testimonials__title">{{ section.settings.title | default: 'Elegido por mamás que buscan lo mejor' }}</h2>
+  <div class="testimonials-grid">
+    {%- for block in section.blocks -%}
+      <div class="testimonial-card" {{ block.shopify_attributes }}>
+        <div class="testimonial-card__avatar">{{ block.settings.initials }}</div>
+        {% render 'stars' %}
+        <p class="testimonial-card__text">"{{ block.settings.text }}"</p>
+        <p class="testimonial-card__name">{{ block.settings.name }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonios",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Elegido por mamás que buscan lo mejor" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonio",
+      "settings": [
+        { "type": "text", "id": "initials", "label": "Iniciales", "default": "ML" },
+        { "type": "text", "id": "name", "label": "Nombre", "default": "María López" },
+        { "type": "textarea", "id": "text", "label": "Testimonio", "default": "La piel de mi bebé nunca estuvo tan suave." }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Testimonios",
+    "blocks": [
+      { "type": "testimonial", "settings": { "initials": "ML", "name": "María López", "text": "La piel de mi bebé nunca estuvo tan suave." } },
+      { "type": "testimonial", "settings": { "initials": "AG", "name": "Ana García", "text": "Por fin una crema que puede usar toda la familia." } },
+      { "type": "testimonial", "settings": { "initials": "LS", "name": "Laura Sánchez", "text": "Ingredientes reales, resultados reales." } }
+    ]
+  }]
+}
+{% endschema %}

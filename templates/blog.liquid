@@ -1,0 +1,15 @@
+<div class="container" style="padding: 48px 24px; max-width: 700px;">
+  <h1 style="font-family: var(--font-heading); font-size: 28px; margin-bottom: 32px; text-align: center;">{{ blog.title }}</h1>
+  {%- for article in blog.articles -%}
+    <article style="margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--color-border-light);">
+      <h2 style="font-family: var(--font-heading); font-size: 22px; margin-bottom: 8px;">
+        <a href="{{ article.url }}">{{ article.title }}</a>
+      </h2>
+      <p style="font-size: 12px; color: var(--color-text-light); margin-bottom: 12px;">{{ article.published_at | date: '%d/%m/%Y' }}</p>
+      <p style="font-size: 14px; color: var(--color-text-light); line-height: 1.7;">{{ article.excerpt_or_content | strip_html | truncate: 200 }}</p>
+    </article>
+  {%- endfor -%}
+  {%- if blog.articles.size == 0 -%}
+    <p style="text-align: center; color: var(--color-text-light);">No hay artículos todavía.</p>
+  {%- endif -%}
+</div>

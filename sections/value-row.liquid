@@ -1,0 +1,45 @@
+<div class="value-row {% if section.settings.large %}value-row--large{% endif %} fade-in">
+  {%- for block in section.blocks -%}
+    <div class="value-row__item" {{ block.shopify_attributes }}>
+      <div class="value-row__icon">
+        {% render 'icon', name: block.settings.icon %}
+      </div>
+      <div class="value-row__label">{{ block.settings.label }}</div>
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Fila de valores",
+  "settings": [
+    { "type": "checkbox", "id": "large", "label": "Versión grande", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Valor",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Ícono", "options": [
+          { "value": "heart", "label": "Corazón" },
+          { "value": "leaf", "label": "Hoja" },
+          { "value": "toxic-free", "label": "Libre de tóxicos" },
+          { "value": "drop", "label": "Gota" },
+          { "value": "shield", "label": "Escudo" },
+          { "value": "sun", "label": "Sol" },
+          { "value": "moon", "label": "Luna" }
+        ], "default": "heart" },
+        { "type": "text", "id": "label", "label": "Texto", "default": "Natural y Seguro" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Fila de valores",
+    "blocks": [
+      { "type": "value", "settings": { "icon": "heart", "label": "Natural y Seguro" } },
+      { "type": "value", "settings": { "icon": "leaf", "label": "Apto para Piel Sensible" } },
+      { "type": "value", "settings": { "icon": "toxic-free", "label": "Libre de Tóxicos" } }
+    ]
+  }]
+}
+{% endschema %}

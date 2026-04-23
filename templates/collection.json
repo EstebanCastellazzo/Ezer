@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "banner": {
+      "type": "hero",
+      "settings": {
+        "title": "Nuestros Productos",
+        "subtitle": "Cuidado puro y consciente para toda la familia.",
+        "button_text": ""
+      }
+    },
+    "products": {
+      "type": "featured-products",
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "limit": 4
+      }
+    }
+  },
+  "order": ["banner", "products"]
+}

@@ -1,0 +1,211 @@
+{%- comment -%} EZER Product Page Section {%- endcomment -%}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a href="/">Inicio</a>
+  <span class="breadcrumb__sep">/</span>
+  <span>{{ product.title }}</span>
+</div>
+
+<!-- Product Layout -->
+<div class="product-page-layout">
+  <!-- Product Image -->
+  <div class="product-hero fade-in">
+    {%- if product.featured_image -%}
+      <img
+        src="{{ product.featured_image | image_url: width: 1000 }}"
+        alt="{{ product.featured_image.alt | escape }}"
+        width="1000"
+        height="1000"
+      >
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+
+  <!-- Product Info -->
+  <div class="product-info fade-in">
+    {%- if product.metafields.custom.badge_icon -%}
+      <div class="product-info__badge">
+        {% render 'icon', name: product.metafields.custom.badge_icon %}
+        <span class="product-info__badge-text">{{ product.metafields.custom.badge_text }}</span>
+      </div>
+    {%- elsif section.settings.badge_text != blank -%}
+      <div class="product-info__badge">
+        {% render 'icon', name: section.settings.badge_icon %}
+        <span class="product-info__badge-text">{{ section.settings.badge_text }}</span>
+      </div>
+    {%- endif -%}
+
+    <h1 class="product-info__title">{{ product.title }}</h1>
+    
+    {%- if product.metafields.custom.subtitle -%}
+      <p class="product-info__subtitle">{{ product.metafields.custom.subtitle }}</p>
+    {%- endif -%}
+
+    <div class="product-info__rating">
+      <div class="product-info__rating-stars">
+        {%- for i in (1..5) -%}{% render 'icon', name: 'star' %}{%- endfor -%}
+      </div>
+      <span class="product-info__rating-count">({{ section.settings.review_count | default: '47' }} reseñas)</span>
+    </div>
+
+    <div class="product-info__price">{{ product.price | money }}</div>
+    
+    <div class="product-info__description">{{ product.description }}</div>
+
+    {%- form 'product', product -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      
+      <div class="qty-row">
+        <div class="qty-selector">
+          <button type="button" class="qty-minus">−</button>
+          <span class="qty-selector__value">1</span>
+          <button type="button" class="qty-plus">+</button>
+        </div>
+        <button type="submit" class="btn-cta" style="flex:1;">Agregar al Carrito</button>
+      </div>
+    {%- endform -%}
+
+    <a href="/checkout" class="btn-outline" style="margin-top:0;">Comprar Ahora</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Ingredients Highlight -->
+{%- if section.blocks.size > 0 -%}
+  <section class="ingredients-section fade-in">
+    <h2 class="ingredients-section__title">Ingredientes Destacados</h2>
+    <div class="ingredients-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'ingredient' -%}
+          <div class="ingredient-card" {{ block.shopify_attributes }}>
+            <div class="ingredient-card__circle" style="background: linear-gradient(135deg, {{ block.settings.color }}, {{ block.settings.color }}80);"></div>
+            <h3 class="ingredient-card__name">{{ block.settings.name }}</h3>
+            <p class="ingredient-card__desc">{{ block.settings.description }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+<!-- How to Use -->
+<section class="howto fade-in">
+  <h2 class="howto__title">Cómo Usar</h2>
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'step' -%}
+      <div class="howto-step" {{ block.shopify_attributes }}>
+        <div class="howto-step__number">{{ block.settings.number | default: forloop.index | prepend: '0' | slice: -2, 2 }}</div>
+        <div>
+          <h3 class="howto-step__title">{{ block.settings.title }}</h3>
+          <p class="howto-step__desc">{{ block.settings.description }}</p>
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</section>
+
+<!-- Accordion Details -->
+<section class="accordion-section fade-in">
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'accordion' -%}
+      <div class="accordion-item" {{ block.shopify_attributes }}>
+        <button class="accordion-trigger" aria-expanded="false">
+          <span class="accordion-trigger__text">{{ block.settings.title }}</span>
+          <span class="accordion-trigger__icon">{% render 'icon', name: 'chevron-down' %}</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-content__inner">{{ block.settings.content }}</div>
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</section>
+
+<!-- Testimonials Carousel -->
+<section class="testimonials fade-in">
+  <h2 class="testimonials__title">Lo que dicen nuestras clientas</h2>
+  <div class="testimonials-carousel">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'testimonial' -%}
+        <div class="testimonial-carousel-card" {{ block.shopify_attributes }}>
+          <div class="testimonial-card__avatar" style="width:48px;height:48px;font-size:16px;margin:0 auto 10px;">{{ block.settings.initials }}</div>
+          {% render 'stars' %}
+          <p class="testimonial-card__text" style="font-size:13px;">"{{ block.settings.text }}"</p>
+          <p class="testimonial-card__name">{{ block.settings.name }}</p>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<!-- Cross-sell -->
+{%- if section.settings.cross_sell_product != blank -%}
+  {%- assign cross_product = all_products[section.settings.cross_sell_product] -%}
+  {%- if cross_product -%}
+    <section class="cross-sell fade-in">
+      <h2 class="cross-sell__title">{{ section.settings.cross_sell_title | default: 'Completá tu rutina' }}</h2>
+      <p class="cross-sell__text">{{ section.settings.cross_sell_text | default: 'Potenciá los resultados con el cuidado completo' }}</p>
+      <div class="cross-sell__product">
+        {% render 'product-card', product: cross_product %}
+      </div>
+    </section>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Producto EZER",
+  "settings": [
+    { "type": "select", "id": "badge_icon", "label": "Ícono del badge", "options": [
+      { "value": "sun", "label": "Sol (Día)" },
+      { "value": "moon", "label": "Luna (Noche)" }
+    ], "default": "sun" },
+    { "type": "text", "id": "badge_text", "label": "Texto del badge", "default": "Protección Diurna" },
+    { "type": "text", "id": "review_count", "label": "Cantidad de reseñas", "default": "47" },
+    { "type": "product", "id": "cross_sell_product", "label": "Producto cruzado" },
+    { "type": "text", "id": "cross_sell_title", "label": "Título cross-sell", "default": "Completá tu rutina" },
+    { "type": "text", "id": "cross_sell_text", "label": "Texto cross-sell", "default": "Potenciá los resultados con el cuidado completo" }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingrediente",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nombre", "default": "Aloe Vera" },
+        { "type": "text", "id": "description", "label": "Beneficio", "default": "Hidrata y calma la piel en profundidad" },
+        { "type": "color", "id": "color", "label": "Color del círculo", "default": "#B5C8A0" }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Paso de uso",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Número", "default": "01" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Limpiá" },
+        { "type": "text", "id": "description", "label": "Descripción", "default": "Lavá tu rostro con agua tibia." }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Acordeón",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Lista Completa de Ingredientes" },
+        { "type": "textarea", "id": "content", "label": "Contenido" }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonio",
+      "settings": [
+        { "type": "text", "id": "initials", "label": "Iniciales", "default": "ML" },
+        { "type": "text", "id": "name", "label": "Nombre", "default": "María L." },
+        { "type": "textarea", "id": "text", "label": "Testimonio", "default": "La textura es increíble y el aroma muy sutil." }
+      ]
+    }
+  ]
+}
+{% endschema %}

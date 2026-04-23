@@ -1,0 +1,24 @@
+<section class="hero fade-in">
+  {%- if section.settings.logo -%}
+    <img src="{{ section.settings.logo | image_url: width: 400 }}" alt="{{ shop.name }}" class="hero__logo">
+  {%- endif -%}
+  <h1 class="hero__title">{{ section.settings.title | default: 'Lo que toca tu piel, también toca tu historia' }}</h1>
+  <p class="hero__subtitle">{{ section.settings.subtitle | default: 'Cuidado puro y consciente para toda la familia.' }}</p>
+  {%- if section.settings.button_text != blank -%}
+    <a href="{{ section.settings.button_url }}" class="btn-cta">{{ section.settings.button_text }}</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo hero" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Lo que toca tu piel, también toca tu historia" },
+    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Cuidado puro y consciente para toda la familia." },
+    { "type": "text", "id": "button_text", "label": "Texto del botón", "default": "Comprar Ahora" },
+    { "type": "url", "id": "button_url", "label": "Link del botón" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}
