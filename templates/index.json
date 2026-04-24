@@ -3,73 +3,67 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "title": "Lo que toca tu piel, también toca tu historia",
-        "subtitle": "Cuidado puro y consciente para toda la familia.",
-        "button_text": "Comprar Ahora"
+        "brand": "EZER",
+        "highlight": "100% Natural",
+        "tagline": "Cosmética para el cuidado real de tu piel: salud, pureza y bienestar diario.",
+        "button_text": "Ver productos",
+        "button_url": "/#crema-noche",
+        "show_socials": true
       }
     },
-    "values-top": {
-      "type": "value-row",
-      "settings": { "large": false },
-      "blocks": {
-        "v1": { "type": "value", "settings": { "icon": "heart", "label": "Natural y Seguro" } },
-        "v2": { "type": "value", "settings": { "icon": "leaf", "label": "Apto para Piel Sensible" } },
-        "v3": { "type": "value", "settings": { "icon": "toxic-free", "label": "Libre de Tóxicos" } }
-      },
-      "block_order": ["v1", "v2", "v3"]
-    },
-    "products": {
-      "type": "featured-products",
+    "crema-noche": {
+      "type": "product-feature",
       "settings": {
-        "title": "Nuestros Productos",
-        "subtitle": "Ritual completo de día y noche",
-        "limit": 2
-      }
+        "anchor_id": "crema-noche",
+        "layout": "centered",
+        "eyebrow": "CREMA DE NOCHE",
+        "title": "Ácido hialurónico y colágeno",
+        "subtitle": "Un ritual nocturno que acompaña el proceso natural de regeneración de tu piel."
+      },
+      "blocks": {
+        "b1": { "type": "ingredient", "settings": { "icon": "drop",   "title": "Hidratación profunda y duradera", "description": "El ácido hialurónico hidrata de inmediato y suaviza las líneas finas causadas por la sequedad." } },
+        "b2": { "type": "ingredient", "settings": { "icon": "shield", "title": "Retiene el colágeno",              "description": "Fortalece la barrera cutánea y mejora visiblemente la firmeza y resiliencia de tu piel." } },
+        "b3": { "type": "ingredient", "settings": { "icon": "heart",  "title": "Rellena visiblemente la piel",     "description": "Repone la humedad esencial dando apariencia más voluminosa y juvenil, noche tras noche." } },
+        "b4": { "type": "ingredient", "settings": { "icon": "moon",   "title": "Regenera durante el descanso",     "description": "Fórmula nocturna pensada para acompañar el proceso natural de renovación de la piel." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
     },
-    "featured-img": {
-      "type": "featured-image",
+    "crema-dia": {
+      "type": "product-feature",
       "settings": {
-        "text": "Ingredientes que respetan tu piel"
-      }
-    },
-    "values-bottom": {
-      "type": "value-row",
-      "settings": { "large": true },
-      "blocks": {
-        "v1": { "type": "value", "settings": { "icon": "heart", "label": "Natural y Seguro" } },
-        "v2": { "type": "value", "settings": { "icon": "leaf", "label": "Apto para Piel Sensible" } },
-        "v3": { "type": "value", "settings": { "icon": "toxic-free", "label": "Libre de Tóxicos" } }
+        "anchor_id": "crema-dia",
+        "layout": "split",
+        "side_image_position": "left",
+        "eyebrow": "CREMA DE DÍA",
+        "title": "Aloe vera: hidratación pura",
+        "subtitle": "Protegé tu piel durante el día con el poder calmante y antioxidante del aloe."
       },
-      "block_order": ["v1", "v2", "v3"]
-    },
-    "why": {
-      "type": "why-ezer",
-      "settings": {},
       "blocks": {
-        "c1": { "type": "card", "settings": { "icon": "drop", "title": "Hidratación Profunda", "description": "Ácido hialurónico y aloe vera" } },
-        "c2": { "type": "card", "settings": { "icon": "shield", "title": "Barrera Protectora", "description": "Colágeno natural y vitamina E" } },
-        "c3": { "type": "card", "settings": { "icon": "sun", "title": "Ritual Completo", "description": "Día y noche para cada momento" } }
+        "b1": { "type": "ingredient", "settings": { "icon": "drop",       "title": "Hidratación sin sensación grasosa", "description": "El aloe vera crea una barrera protectora que retiene la humedad sin oclusión." } },
+        "b2": { "type": "ingredient", "settings": { "icon": "sun",        "title": "Atenúa manchas y unifica el tono",  "description": "Aloína y aloesin reducen la hiperpigmentación y previenen su nueva formación." } },
+        "b3": { "type": "ingredient", "settings": { "icon": "leaf",       "title": "Antioxidantes que reducen arrugas", "description": "Vitaminas C y E combaten los radicales libres y estimulan la producción de colágeno." } },
+        "b4": { "type": "ingredient", "settings": { "icon": "toxic-free", "title": "Ideal para pieles sensibles",       "description": "Alivia enrojecimiento e irritación: perfecto para piel reactiva, acné o eczema." } }
       },
-      "block_order": ["c1", "c2", "c3"]
+      "block_order": ["b1", "b2", "b3", "b4"]
     },
-    "testimonials": {
+    "testimonios": {
       "type": "testimonials",
-      "settings": { "title": "Elegido por mamás que buscan lo mejor" },
+      "settings": {
+        "anchor_id": "testimonios",
+        "eyebrow": "TESTIMONIOS",
+        "title": "Lo que dicen quienes ya lo probaron",
+        "show_average_rating": true,
+        "average_rating_stars": 5,
+        "average_rating": "4.9/5",
+        "review_count": "basado en +100 opiniones"
+      },
       "blocks": {
-        "t1": { "type": "testimonial", "settings": { "initials": "ML", "name": "María López", "text": "La piel de mi bebé nunca estuvo tan suave." } },
-        "t2": { "type": "testimonial", "settings": { "initials": "AG", "name": "Ana García", "text": "Por fin una crema que puede usar toda la familia." } },
-        "t3": { "type": "testimonial", "settings": { "initials": "LS", "name": "Laura Sánchez", "text": "Ingredientes reales, resultados reales." } }
+        "t1": { "type": "testimonial", "settings": { "name": "María López",   "source": "Compra verificada", "rating": 5, "text": "La piel de mi bebé nunca estuvo tan suave. Se nota el cambio desde la primera semana." } },
+        "t2": { "type": "testimonial", "settings": { "name": "Ana García",    "source": "Compra verificada", "rating": 5, "text": "Por fin una crema que puede usar toda la familia sin dudar. Huele increíble." } },
+        "t3": { "type": "testimonial", "settings": { "name": "Laura Sánchez", "source": "Compra verificada", "rating": 5, "text": "Ingredientes reales, resultados reales. Mi piel está más firme y luminosa." } }
       },
       "block_order": ["t1", "t2", "t3"]
-    },
-    "cta": {
-      "type": "cta-band",
-      "settings": {
-        "title": "Tu piel merece lo mejor",
-        "text": "Descubrí la diferencia de lo natural.",
-        "button_text": "Ver Productos"
-      }
     }
   },
-  "order": ["hero", "values-top", "products", "featured-img", "values-bottom", "why", "testimonials", "cta"]
+  "order": ["hero", "crema-noche", "crema-dia", "testimonios"]
 }
