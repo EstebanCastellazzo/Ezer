@@ -3,7 +3,9 @@
     "name": "theme_info",
     "theme_name": "EZER",
     "theme_version": "1.0.1",
-    "theme_author": "EZER"
+    "theme_author": "EZER",
+    "theme_documentation_url": "https://github.com/EstebanCastellazzo/Ezer",
+    "theme_support_url": "https://github.com/EstebanCastellazzo/Ezer/issues"
   },
   {
     "name": "Favicon",
