@@ -16,5 +16,42 @@
         "label": "Favicon"
       }
     ]
+  },
+  {
+    "name": "Redes sociales y contacto",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Links de redes sociales"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram",
+        "default": "https://www.instagram.com/ezer.cremas/"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook",
+        "default": "https://www.facebook.com/profile.php?id=61571901001732"
+      },
+      {
+        "type": "header",
+        "content": "WhatsApp"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "Número de WhatsApp (formato internacional sin + ni espacios, ej: 5492617506650)",
+        "default": "5492617506650"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message",
+        "label": "Mensaje predeterminado",
+        "default": "Hola! Quiero saber más sobre las cremas EZER."
+      }
+    ]
   }
 ]
