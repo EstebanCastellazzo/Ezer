@@ -1,11 +1,55 @@
-<section class="hero fade-in">
-  {%- if section.settings.logo -%}
-    <img src="{{ section.settings.logo | image_url: width: 400 }}" alt="{{ shop.name }}" class="hero__logo">
-  {%- endif -%}
-  <h1 class="hero__title">{{ section.settings.title | default: 'Lo que toca tu piel, también toca tu historia' }}</h1>
-  <p class="hero__subtitle">{{ section.settings.subtitle | default: 'Cuidado puro y consciente para toda la familia.' }}</p>
-  {%- if section.settings.button_text != blank -%}
-    <a href="{{ section.settings.button_url }}" class="btn-cta">{{ section.settings.button_text }}</a>
+{%- liquid
+  assign brand = section.settings.brand | default: 'EZER'
+  assign highlight = section.settings.highlight
+  assign tagline = section.settings.tagline
+  assign cta_text = section.settings.button_text
+  assign cta_url = section.settings.button_url | default: '#crema-noche'
+  assign product_image = section.settings.product_image
+-%}
+
+<section class="hero hero--split" id="hero">
+  {% render 'decor-leaves' %}
+
+  <div class="hero__inner">
+    <h1 class="hero__brand" aria-label="{{ brand }}">{{ brand }}</h1>
+
+    {%- if product_image -%}
+      <div class="hero__product">
+        <img
+          src="{{ product_image | image_url: width: 900 }}"
+          srcset="{{ product_image | image_url: width: 450 }} 450w, {{ product_image | image_url: width: 900 }} 900w, {{ product_image | image_url: width: 1400 }} 1400w"
+          sizes="(max-width: 768px) 70vw, 40vw"
+          alt="{{ product_image.alt | default: brand | escape }}"
+          loading="eager"
+          width="900"
+          height="900">
+      </div>
+    {%- else -%}
+      <div class="hero__product hero__product--placeholder" aria-hidden="true">
+        <div class="hero__product-ph">Imagen del producto</div>
+      </div>
+    {%- endif -%}
+
+    <div class="hero__text hero__text--left">
+      {%- if highlight != blank -%}
+        <div class="hero__highlight">{{ highlight | escape }}</div>
+      {%- endif -%}
+      {%- if tagline != blank -%}
+        <p class="hero__tagline">{{ tagline | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if cta_text != blank -%}
+      <div class="hero__text hero__text--right">
+        <a href="{{ cta_url }}" class="btn-cta hero__cta">{{ cta_text | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.show_socials -%}
+    <div class="hero__socials">
+      {% render 'social-stack' %}
+    </div>
   {%- endif -%}
 </section>
 
@@ -13,11 +57,66 @@
 {
   "name": "Hero",
   "settings": [
-    { "type": "image_picker", "id": "logo", "label": "Logo hero" },
-    { "type": "text", "id": "title", "label": "Título", "default": "Lo que toca tu piel, también toca tu historia" },
-    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Cuidado puro y consciente para toda la familia." },
-    { "type": "text", "id": "button_text", "label": "Texto del botón", "default": "Comprar Ahora" },
-    { "type": "url", "id": "button_url", "label": "Link del botón" }
+    {
+      "type": "header",
+      "content": "Texto de marca (grande)"
+    },
+    {
+      "type": "text",
+      "id": "brand",
+      "label": "Palabra grande de marca",
+      "default": "EZER"
+    },
+    {
+      "type": "header",
+      "content": "Textos secundarios"
+    },
+    {
+      "type": "text",
+      "id": "highlight",
+      "label": "Destacado (arriba de la bajada)",
+      "default": "100% Natural"
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Bajada (lado izquierdo)",
+      "default": "Cosmética para el cuidado real de tu piel: salud, pureza y bienestar diario."
+    },
+    {
+      "type": "header",
+      "content": "Llamado a la acción"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto del botón",
+      "default": "Ver productos"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Link del botón (dejar vacío para ir a la sección Crema de Noche)"
+    },
+    {
+      "type": "header",
+      "content": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Imagen del producto (PNG con fondo transparente recomendado)"
+    },
+    {
+      "type": "header",
+      "content": "Redes sociales"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_socials",
+      "label": "Mostrar íconos de redes sociales",
+      "default": true
+    }
   ],
   "presets": [{ "name": "Hero" }]
 }

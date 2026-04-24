@@ -1,0 +1,32 @@
+{%- comment -%}
+  Stack vertical de redes sociales.
+  Uso: {% render 'social-stack' %}
+  Lee los links desde settings del tema.
+{%- endcomment -%}
+
+{%- assign wa_number = settings.whatsapp_number | default: '' -%}
+{%- assign wa_message = settings.whatsapp_message | default: '' | url_encode -%}
+
+<ul class="social-stack" aria-label="Redes sociales">
+  {%- if settings.social_instagram != blank -%}
+    <li>
+      <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
+        {% render 'icon', name: 'instagram' %}
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_facebook != blank -%}
+    <li>
+      <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">
+        {% render 'icon', name: 'facebook' %}
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if wa_number != blank -%}
+    <li>
+      <a href="https://wa.me/{{ wa_number }}?text={{ wa_message }}" target="_blank" rel="noopener" aria-label="WhatsApp">
+        {% render 'icon', name: 'whatsapp' %}
+      </a>
+    </li>
+  {%- endif -%}
+</ul>
