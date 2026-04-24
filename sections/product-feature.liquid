@@ -1,0 +1,175 @@
+{%- liquid
+  assign anchor_id = section.settings.anchor_id | default: 'product-feature'
+  assign layout = section.settings.layout | default: 'centered'
+  assign side_image_position = section.settings.side_image_position | default: 'left'
+-%}
+
+<section
+  class="product-feature product-feature--{{ layout }} product-feature--side-{{ side_image_position }} fade-in"
+  id="{{ anchor_id }}"
+  {% if section.settings.bg_color != blank %}style="background-color: {{ section.settings.bg_color }};"{% endif %}>
+
+  {%- if layout == 'split' and section.settings.side_image -%}
+    <div class="product-feature__side">
+      <img
+        src="{{ section.settings.side_image | image_url: width: 900 }}"
+        srcset="{{ section.settings.side_image | image_url: width: 600 }} 600w, {{ section.settings.side_image | image_url: width: 900 }} 900w, {{ section.settings.side_image | image_url: width: 1400 }} 1400w"
+        sizes="(max-width: 900px) 100vw, 50vw"
+        alt="{{ section.settings.side_image.alt | default: section.settings.title | escape }}"
+        loading="lazy"
+        width="900"
+        height="1100">
+    </div>
+  {%- endif -%}
+
+  <div class="product-feature__body">
+    <div class="product-feature__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="product-feature__eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="product-feature__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="product-feature__subtitle">{{ section.settings.subtitle | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="product-feature__canvas">
+      {%- if section.settings.product_image -%}
+        <div class="product-feature__product">
+          <img
+            src="{{ section.settings.product_image | image_url: width: 700 }}"
+            srcset="{{ section.settings.product_image | image_url: width: 400 }} 400w, {{ section.settings.product_image | image_url: width: 700 }} 700w, {{ section.settings.product_image | image_url: width: 1100 }} 1100w"
+            sizes="(max-width: 900px) 50vw, 320px"
+            alt="{{ section.settings.product_image.alt | default: section.settings.title | escape }}"
+            loading="lazy"
+            width="700"
+            height="900">
+        </div>
+      {%- else -%}
+        <div class="product-feature__product product-feature__product--placeholder" aria-hidden="true">Imagen del producto</div>
+      {%- endif -%}
+
+      <div class="product-feature__cards">
+        {%- for block in section.blocks -%}
+          <div class="pf-card pf-card--{{ forloop.index }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != 'none' -%}
+              <div class="pf-card__icon">{% render 'icon', name: block.settings.icon %}</div>
+            {%- endif -%}
+            <div class="pf-card__text">
+              <h3 class="pf-card__title">{{ block.settings.title | escape }}</h3>
+              <p class="pf-card__desc">{{ block.settings.description | escape }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.settings.cta_text != blank -%}
+      <div class="product-feature__cta">
+        <a href="{{ section.settings.cta_url | default: '#' }}" class="btn-cta">{{ section.settings.cta_text | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Producto: features",
+  "settings": [
+    { "type": "header", "content": "Identificador y layout" },
+    { "type": "text", "id": "anchor_id", "label": "ID de anclaje (para menú)", "default": "crema-noche", "info": "Se usa como #anchor en el menú" },
+    { "type": "select", "id": "layout", "label": "Layout",
+      "options": [
+        { "value": "centered", "label": "Producto centrado con cards alrededor" },
+        { "value": "split", "label": "Imagen a un lado + producto con cards al otro" }
+      ],
+      "default": "centered"
+    },
+    { "type": "select", "id": "side_image_position", "label": "Posición de la imagen lateral (solo split)",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "right", "label": "Derecha" }
+      ],
+      "default": "left"
+    },
+    { "type": "image_picker", "id": "side_image", "label": "Imagen lateral (solo split)" },
+
+    { "type": "header", "content": "Encabezado" },
+    { "type": "text", "id": "eyebrow", "label": "Pre-título (chico, arriba)", "default": "CREMA DE NOCHE" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Ingredientes principales" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtítulo (opcional)" },
+
+    { "type": "header", "content": "Producto" },
+    { "type": "image_picker", "id": "product_image", "label": "Imagen del producto (PNG transparente)" },
+
+    { "type": "header", "content": "CTA (opcional)" },
+    { "type": "text", "id": "cta_text", "label": "Texto del botón" },
+    { "type": "url", "id": "cta_url", "label": "Link del botón" },
+
+    { "type": "header", "content": "Estilo" },
+    { "type": "color", "id": "bg_color", "label": "Color de fondo (opcional)" }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingrediente / Beneficio",
+      "limit": 4,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Ícono",
+          "options": [
+            { "value": "none", "label": "Sin ícono" },
+            { "value": "drop", "label": "Gota (hidratación)" },
+            { "value": "shield", "label": "Escudo (protección)" },
+            { "value": "heart", "label": "Corazón (cuidado)" },
+            { "value": "leaf", "label": "Hoja (natural)" },
+            { "value": "sun", "label": "Sol (día)" },
+            { "value": "moon", "label": "Luna (noche)" },
+            { "value": "toxic-free", "label": "Libre de tóxicos" }
+          ],
+          "default": "drop"
+        },
+        { "type": "text", "id": "title", "label": "Título", "default": "Hidratación profunda" },
+        { "type": "textarea", "id": "description", "label": "Descripción", "default": "El ácido hialurónico actúa de inmediato, suavizando líneas finas y dando apariencia más tersa." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Crema de Noche (centrado)",
+      "settings": {
+        "anchor_id": "crema-noche",
+        "layout": "centered",
+        "eyebrow": "CREMA DE NOCHE",
+        "title": "Ácido hialurónico y colágeno",
+        "subtitle": "Un ritual nocturno que acompaña el proceso natural de regeneración de tu piel."
+      },
+      "blocks": [
+        { "type": "ingredient", "settings": { "icon": "drop",   "title": "Hidratación profunda y duradera", "description": "El ácido hialurónico hidrata de inmediato y suaviza las líneas finas causadas por la sequedad." } },
+        { "type": "ingredient", "settings": { "icon": "shield", "title": "Retiene el colágeno",              "description": "Fortalece la barrera cutánea y mejora visiblemente la firmeza y resiliencia de tu piel." } },
+        { "type": "ingredient", "settings": { "icon": "heart",  "title": "Rellena visiblemente la piel",     "description": "Repone la humedad esencial dando apariencia más voluminosa y juvenil, noche tras noche." } },
+        { "type": "ingredient", "settings": { "icon": "moon",   "title": "Regenera durante el descanso",    "description": "Fórmula nocturna pensada para acompañar el proceso natural de renovación de la piel." } }
+      ]
+    },
+    {
+      "name": "Crema de Día (split)",
+      "settings": {
+        "anchor_id": "crema-dia",
+        "layout": "split",
+        "side_image_position": "left",
+        "eyebrow": "CREMA DE DÍA",
+        "title": "Aloe vera: hidratación pura",
+        "subtitle": "Protegé tu piel durante el día con el poder calmante y antioxidante del aloe."
+      },
+      "blocks": [
+        { "type": "ingredient", "settings": { "icon": "drop",       "title": "Hidratación sin sensación grasosa", "description": "El aloe vera crea una barrera protectora que retiene la humedad sin oclusión." } },
+        { "type": "ingredient", "settings": { "icon": "sun",        "title": "Atenúa manchas y unifica el tono",  "description": "Aloína y aloesin reducen la hiperpigmentación y previenen su nueva formación." } },
+        { "type": "ingredient", "settings": { "icon": "leaf",       "title": "Antioxidantes que reducen arrugas", "description": "Vitaminas C y E combaten los radicales libres y estimulan la producción de colágeno." } },
+        { "type": "ingredient", "settings": { "icon": "toxic-free", "title": "Ideal para pieles sensibles",       "description": "Alivia enrojecimiento e irritación: perfecto para piel reactiva, acné o eczema." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
