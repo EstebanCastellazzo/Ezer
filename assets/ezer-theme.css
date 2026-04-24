@@ -801,52 +801,132 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ═══════════════════════════════════════════════════
-   TESTIMONIALS
+   TESTIMONIALS (redesign)
    ═══════════════════════════════════════════════════ */
-.testimonials { padding: 48px 20px; background: var(--color-bg-warm); text-align: center; }
-.testimonials__title { font-size: 22px; margin-bottom: 32px; }
-.testimonials-grid {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
+.testimonials {
+  padding: 72px 20px;
+  background: var(--color-bg-warm);
+}
+.testimonials__head {
+  text-align: center;
   max-width: 700px;
+  margin: 0 auto 44px;
+}
+.testimonials__eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-cta);
+  margin-bottom: 12px;
+}
+.testimonials__title {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(28px, 4.5vw, 42px);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.testimonials__subtitle {
+  font-size: 15px;
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+.testimonials__summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 8px 16px;
+  background: var(--color-white);
+  border-radius: 999px;
+  border: 1px solid var(--color-border-light);
+}
+.testimonials__summary-text { font-size: 13px; color: var(--color-text); }
+.testimonials__summary-text strong { font-weight: 600; }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1100px;
   margin: 0 auto;
 }
-.testimonial-card { text-align: center; flex: 1; min-width: 0; }
+@media (min-width: 700px) {
+  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.testimonial-card {
+  background: var(--color-white);
+  border-radius: 14px;
+  padding: 26px 24px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid var(--color-border-light);
+  box-shadow: 0 4px 18px rgba(60, 50, 30, 0.04);
+}
+.testimonial-card__header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 .testimonial-card__avatar {
-  width: 72px; height: 72px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  margin: 0 auto 14px;
+  overflow: hidden;
+  flex-shrink: 0;
   background: linear-gradient(135deg, var(--color-cream), var(--color-border));
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-heading);
-  font-size: 22px;
-  color: var(--color-text);
   border: 2px solid var(--color-border-light);
 }
-.testimonial-card__stars {
-  display: flex;
-  justify-content: center;
-  gap: 2px;
-  margin-bottom: 8px;
+.testimonial-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.testimonial-card__stars svg { width: 14px; height: 14px; }
-.testimonial-card__text {
+.testimonial-card__initials {
   font-family: var(--font-heading);
-  font-size: 13px;
-  font-style: italic;
-  line-height: 1.6;
-  margin-bottom: 8px;
-  padding: 0 4px;
+  font-size: 20px;
+  color: var(--color-text);
 }
+.testimonial-card__meta { display: flex; flex-direction: column; gap: 2px; }
 .testimonial-card__name {
-  font-size: 10px;
-  color: var(--color-text-light);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text);
 }
+.testimonial-card__source {
+  font-size: 11px;
+  color: var(--color-text-light);
+  letter-spacing: 0.04em;
+}
+.testimonial-card__text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  quotes: "\201C" "\201D";
+}
+.testimonial-card__text::before { content: open-quote; margin-right: 2px; color: var(--color-cta); }
+.testimonial-card__text::after  { content: close-quote; margin-left: 2px; color: var(--color-cta); }
+
+/* Stars */
+.stars { display: inline-flex; gap: 2px; }
+.stars svg { width: 14px; height: 14px; }
+.stars__empty { opacity: 0.25; }
 
 /* Testimonial carousel (product page) */
 .testimonials-carousel {

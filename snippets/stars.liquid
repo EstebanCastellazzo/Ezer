@@ -1,6 +1,14 @@
-{%- comment -%} Renders 5 filled stars. Usage: {% render 'stars' %} {%- endcomment -%}
-<div class="testimonial-card__stars">
+{%- comment -%}
+  Usage: {% render 'stars', rating: 5 %}
+  rating: integer 1..5 (default 5)
+{%- endcomment -%}
+{%- assign r = rating | default: 5 -%}
+<div class="stars" aria-label="{{ r }} de 5 estrellas">
   {%- for i in (1..5) -%}
-    {% render 'icon', name: 'star' %}
+    {%- if i <= r -%}
+      {% render 'icon', name: 'star' %}
+    {%- else -%}
+      <span class="stars__empty" aria-hidden="true">{% render 'icon', name: 'star' %}</span>
+    {%- endif -%}
   {%- endfor -%}
 </div>
