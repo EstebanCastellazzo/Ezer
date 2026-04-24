@@ -4,6 +4,27 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+  /* ─── Header scroll state ─── */
+  const siteHeader = document.querySelector('[data-site-header]');
+  if (siteHeader) {
+    const scrollThreshold = 60;
+    const updateHeader = function() {
+      if (window.scrollY > scrollThreshold) siteHeader.classList.add('is-scrolled');
+      else siteHeader.classList.remove('is-scrolled');
+    };
+    updateHeader();
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateHeader();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
   /* ─── Mobile Menu ─── */
   const menuToggle = document.querySelector('.mobile-menu-toggle');
   const menuClose = document.querySelector('.mobile-menu__close');
@@ -25,6 +46,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (menuClose) menuClose.addEventListener('click', closeMenu);
     if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+    // Close drawer after clicking any mobile menu link
+    mobileMenu.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
   }
 
   /* ─── Accordion ─── */

@@ -70,11 +70,44 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  transition: background 0.35s ease, border-color 0.35s ease, padding 0.35s ease;
 }
 .header-logo img {
   height: 30px;
   width: auto;
   object-fit: contain;
+}
+.header-logo-text {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  letter-spacing: 0.22em;
+  color: var(--color-text);
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header-socials { display: none; }
+@media (min-width: 900px) {
+  .site-header [aria-label="Abrir menú"] { display: none; }
+}
+
+/* Transparent header over hero on home */
+.template-index .site-header {
+  background: transparent;
+  border-bottom-color: transparent;
+  position: fixed;
+  left: 0; right: 0; top: 0;
+  width: 100%;
+}
+.template-index .hero { padding-top: 120px; }
+.template-index .site-header.is-scrolled {
+  background: rgba(253, 251, 250, 0.92);
+  backdrop-filter: saturate(1.2) blur(8px);
+  -webkit-backdrop-filter: saturate(1.2) blur(8px);
+  border-bottom-color: var(--color-border-light);
 }
 .header-icon-btn {
   background: none;
@@ -152,7 +185,7 @@ h1, h2, h3, h4, h5, h6 {
 .mobile-menu__link:hover { color: var(--color-cta); }
 
 /* Desktop Nav */
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .site-header { padding: 16px 40px; }
   .header-logo img { height: 36px; }
   .mobile-menu-toggle { display: none; }
@@ -160,14 +193,31 @@ h1, h2, h3, h4, h5, h6 {
   .desktop-nav a {
     font-family: var(--font-body);
     font-size: 12px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-text-light);
+    color: var(--color-text);
     transition: color 0.3s;
+    padding: 4px 0;
+    position: relative;
+  }
+  .desktop-nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--color-cta);
+    transition: width 0.3s ease, left 0.3s ease;
   }
   .desktop-nav a:hover { color: var(--color-cta); }
+  .desktop-nav a:hover::after { width: 100%; left: 0; }
+  .header-socials { display: flex; }
+  .header-socials .social-stack { flex-direction: row; gap: 8px; }
+  .header-socials .social-stack a { width: 28px; height: 28px; }
+  .header-socials .social-stack svg { width: 14px; height: 14px; }
 }
-@media (max-width: 767px) {
+@media (max-width: 899px) {
   .desktop-nav { display: none; }
 }
 

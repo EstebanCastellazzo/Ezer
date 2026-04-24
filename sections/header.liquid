@@ -1,4 +1,7 @@
-{%- comment -%} Header Section {%- endcomment -%}
+{%- liquid
+  assign wa_number = settings.whatsapp_number | default: ''
+  assign wa_message = settings.whatsapp_message | default: '' | url_encode
+-%}
 
 <!-- Mobile Menu Overlay -->
 <div class="menu-overlay"></div>
@@ -9,19 +12,26 @@
     {%- if section.settings.logo -%}
       <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" height="28">
     {%- else -%}
-      <span style="font-family:var(--font-heading);font-size:24px;letter-spacing:0.2em;">{{ shop.name }}</span>
+      <span class="header-logo-text">{{ shop.name }}</span>
     {%- endif -%}
     <button class="mobile-menu__close" aria-label="Cerrar menú">
       {% render 'icon', name: 'close' %}
     </button>
   </div>
-  {%- for link in linklists.main-menu.links -%}
-    <a href="{{ link.url }}" class="mobile-menu__link">{{ link.title }}</a>
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'menu_link' -%}
+      <a href="{{ block.settings.url }}" class="mobile-menu__link">{{ block.settings.text | escape }}</a>
+    {%- endif -%}
   {%- endfor -%}
+  {%- if wa_number != blank -%}
+    <a href="https://wa.me/{{ wa_number }}?text={{ wa_message }}" target="_blank" rel="noopener" class="mobile-menu__link mobile-menu__link--wa">
+      {% render 'icon', name: 'whatsapp' %} Contacto WhatsApp
+    </a>
+  {%- endif -%}
 </nav>
 
 <!-- Header -->
-<header class="site-header">
+<header class="site-header" data-site-header>
   <button class="header-icon-btn mobile-menu-toggle" aria-label="Abrir menú">
     {% render 'icon', name: 'menu' %}
   </button>
@@ -30,31 +40,58 @@
     {%- if section.settings.logo -%}
       <img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}">
     {%- else -%}
-      <span style="font-family:var(--font-heading);font-size:26px;letter-spacing:0.22em;">{{ shop.name }}</span>
+      <span class="header-logo-text">{{ shop.name }}</span>
     {%- endif -%}
   </a>
 
   <nav class="desktop-nav" aria-label="Navegación principal">
-    {%- for link in linklists.main-menu.links -%}
-      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'menu_link' -%}
+        <a href="{{ block.settings.url }}">{{ block.settings.text | escape }}</a>
+      {%- endif -%}
     {%- endfor -%}
   </nav>
 
-  <a href="/cart" class="header-icon-btn" aria-label="Carrito">
-    {% render 'icon', name: 'cart' %}
-    <span class="cart-count">{{ cart.item_count }}</span>
-  </a>
+  <div class="header-actions">
+    {%- if section.settings.show_header_socials -%}
+      <div class="header-socials">{% render 'social-stack' %}</div>
+    {%- endif -%}
+    {%- if section.settings.show_cart -%}
+      <a href="/cart" class="header-icon-btn" aria-label="Carrito">
+        {% render 'icon', name: 'cart' %}
+        <span class="cart-count">{{ cart.item_count }}</span>
+      </a>
+    {%- endif -%}
+  </div>
 </header>
 
 {% schema %}
 {
   "name": "Header",
   "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "checkbox", "id": "show_cart", "label": "Mostrar carrito", "default": true },
+    { "type": "checkbox", "id": "show_header_socials", "label": "Mostrar íconos sociales en header (desktop)", "default": false }
+  ],
+  "blocks": [
     {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
+      "type": "menu_link",
+      "name": "Link de menú",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texto", "default": "Crema Noche" },
+        { "type": "url", "id": "url", "label": "URL (podés usar /#crema-noche para anclajes de la home)" }
+      ]
     }
-  ]
+  ],
+  "max_blocks": 6,
+  "presets": [{
+    "name": "Header",
+    "blocks": [
+      { "type": "menu_link", "settings": { "text": "Crema Noche", "url": "/#crema-noche" } },
+      { "type": "menu_link", "settings": { "text": "Crema Día",   "url": "/#crema-dia" } },
+      { "type": "menu_link", "settings": { "text": "Testimonios", "url": "/#testimonios" } },
+      { "type": "menu_link", "settings": { "text": "Tienda",      "url": "/collections/all" } }
+    ]
+  }]
 }
 {% endschema %}
