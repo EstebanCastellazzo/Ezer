@@ -5,13 +5,39 @@
   assign cta_text = section.settings.button_text
   assign cta_url = section.settings.button_url | default: '#crema-noche'
   assign product_image = section.settings.product_image
+  assign bg_image = section.settings.bg_image
+  assign hide_leaves = section.settings.hide_leaves
+  assign hero_classes = 'hero hero--split'
+  if bg_image
+    assign hero_classes = hero_classes | append: ' hero--has-bg'
+  endif
 -%}
 
-<section class="hero hero--split" id="hero">
-  {% render 'decor-leaves' %}
+<section class="{{ hero_classes }}" id="hero">
+  {%- if bg_image -%}
+    <div class="hero__bg" aria-hidden="true">
+      <img
+        src="{{ bg_image | image_url: width: 2000 }}"
+        srcset="{{ bg_image | image_url: width: 800 }} 800w, {{ bg_image | image_url: width: 1400 }} 1400w, {{ bg_image | image_url: width: 2000 }} 2000w"
+        sizes="100vw"
+        alt=""
+        loading="eager"
+        width="2000"
+        height="1200">
+      {%- if section.settings.bg_overlay_opacity > 0 -%}
+        <div class="hero__bg-overlay" style="opacity: {{ section.settings.bg_overlay_opacity | divided_by: 100.0 }};"></div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- unless hide_leaves -%}
+    {% render 'decor-leaves' %}
+  {%- endunless -%}
 
   <div class="hero__inner">
-    <h1 class="hero__brand" aria-label="{{ brand }}">{{ brand }}</h1>
+    {%- if section.settings.show_brand_text -%}
+      <h1 class="hero__brand" aria-label="{{ brand }}">{{ brand }}</h1>
+    {%- endif -%}
 
     {%- if product_image -%}
       <div class="hero__product">
@@ -24,7 +50,7 @@
           width="900"
           height="900">
       </div>
-    {%- else -%}
+    {%- elsif bg_image == blank -%}
       <div class="hero__product hero__product--placeholder" aria-hidden="true">
         <div class="hero__product-ph">Imagen del producto</div>
       </div>
@@ -59,7 +85,41 @@
   "settings": [
     {
       "type": "header",
+      "content": "Imagen de fondo (full-width)"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Imagen de fondo full-width",
+      "info": "Cuando hay imagen cargada, ocupa todo el ancho de la pantalla de pared a pared."
+    },
+    {
+      "type": "range",
+      "id": "bg_overlay_opacity",
+      "label": "Opacidad del overlay oscuro sobre la imagen",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 0,
+      "info": "Útil para que el texto se lea bien si la imagen es clara."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_leaves",
+      "label": "Ocultar hojas decorativas",
+      "default": false,
+      "info": "Recomendado activarlo si usás una imagen de fondo con mucho detalle."
+    },
+    {
+      "type": "header",
       "content": "Texto de marca (grande)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_text",
+      "label": "Mostrar palabra grande de marca detrás del producto",
+      "default": true
     },
     {
       "type": "text",
@@ -100,12 +160,13 @@
     },
     {
       "type": "header",
-      "content": "Imagen"
+      "content": "Imagen del producto flotante"
     },
     {
       "type": "image_picker",
       "id": "product_image",
-      "label": "Imagen del producto (PNG con fondo transparente recomendado)"
+      "label": "Producto (PNG con fondo transparente recomendado)",
+      "info": "Se muestra flotando encima del fondo, centrado."
     },
     {
       "type": "header",
